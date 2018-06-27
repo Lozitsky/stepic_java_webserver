@@ -1,6 +1,8 @@
 package servlets;
 
 import accounts.AccountService;
+import accounts.UserProfile;
+import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -27,6 +29,21 @@ public class UsersServlet extends HttpServlet {
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response) throws ServletException, IOException {
         //todo: module 2 home work
+
+//        UserProfile login = accountService.getUserByLogin("admin");
+        UserProfile user = accountService.getUserBySessionId(request.getSession().getId());
+        String login = user.getLogin();
+
+        if (login == null) {
+            response.setContentType("text/html;charset=utf-8");
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        } else {
+            Gson gson = new Gson();
+            String json = gson.toJson(login);
+            response.setContentType("text/html;charset=utf-8");
+            response.getWriter().println(json);
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
     }
 
     //sign up
