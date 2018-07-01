@@ -1,4 +1,4 @@
-package servlets;
+package web;
 
 import accounts.AccountService;
 import accounts.UserProfile;
@@ -14,6 +14,10 @@ public class SignUpServlet extends HttpServlet {
 
     public SignUpServlet(AccountService accountService) {
         this.accountService = accountService;
+    }
+
+    public SignUpServlet() {
+        accountService = new AccountService();
     }
 
     @Override

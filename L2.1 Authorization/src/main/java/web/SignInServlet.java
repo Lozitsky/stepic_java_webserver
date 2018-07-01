@@ -1,4 +1,4 @@
-package servlets;
+package web;
 
 import accounts.AccountService;
 import accounts.UserProfile;
@@ -14,6 +14,15 @@ public class SignInServlet extends HttpServlet {
 
     public SignInServlet(AccountService accountService) {
         this.accountService = accountService;
+    }
+
+    public SignInServlet() {
+        accountService = new AccountService();
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/signIn.jsp").forward(request, response);
     }
 
     @Override
